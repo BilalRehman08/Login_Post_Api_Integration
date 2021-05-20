@@ -23,4 +23,10 @@ class ApiService {
     final allUsers = User.fromJsonList(response?.data);
     return allUsers;
   }
+
+  Future<void> getUserPosts(int userId) async {
+    final response = await _dio?.get('/post', queryParameters: {
+      "userId": userId,
+    });
+  }
 }

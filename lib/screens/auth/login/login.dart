@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/screens/home/home.dart';
 import 'package:task/services/remote/api.dart';
 
 class Login extends StatelessWidget {
@@ -14,7 +15,7 @@ class _Body extends StatelessWidget {
   final userNameCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  void submitForm() async {
+  void submitForm(BuildContext context) async {
     final check = formKey.currentState?.validate();
     if (check ?? false) {
       ApiService _apiService = ApiService();
@@ -22,6 +23,15 @@ class _Body extends StatelessWidget {
       final allUsers = await _apiService.getAllUsers();
       final user = allUsers
           .firstWhere((user) => user.username == userNameCtrl.text.trim());
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(
+            user: user,
+          ),
+        ),
+      );
     }
   }
 
@@ -44,7 +54,7 @@ class _Body extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              onPressed: submitForm,
+              onPressed: () => submitForm(context),
               child: Text('Login'),
             )
           ],
