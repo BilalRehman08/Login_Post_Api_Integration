@@ -17,14 +17,16 @@ class _Body extends StatelessWidget {
 
   void submitForm(BuildContext context) async {
     final check = formKey.currentState?.validate();
+
     if (check ?? false) {
       ApiService _apiService = ApiService();
 
       final allUsers = await _apiService.getAllUsers();
+
       final user = allUsers
           .firstWhere((user) => user.username == userNameCtrl.text.trim());
 
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => Home(
