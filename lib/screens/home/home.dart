@@ -26,14 +26,15 @@ class _Body extends StatefulWidget {
 
 class __BodyState extends State<_Body> {
   var each;
+
   submitForm() async {
     ApiService _apiService = ApiService();
 
-    var eachposts = await _apiService.getUserPosts(1);
+    var eachposts = await _apiService.getUserPosts(4);
     setState(() {
-      var each = eachposts;
+      allposts = eachposts;
     });
-    return each;
+    return eachposts;
   }
 
   @override
@@ -45,17 +46,16 @@ class __BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: FutureBuilder(
-            future: submitForm(),
-            builder: (context, snapshot) {
-              return Container(
-                  child: ListView.builder(
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        final postsss = snapshot.data;
-                        return Text('${each!}');
-                      }));
-            }));
+      appBar: AppBar(
+        title: Text("${allposts[0]['id']}"),
+      ),
+      body: ListView.builder(
+          itemCount: allposts.length,
+          itemBuilder: (context, i) {
+            return ListTile(
+              title: Text("${allposts[i]['title']}"),
+            );
+          }),
+    );
   }
 }
