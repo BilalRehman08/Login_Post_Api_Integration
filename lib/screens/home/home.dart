@@ -49,80 +49,44 @@ class __BodyState extends State<_Body> {
       body: ListView.builder(
           itemCount: allposts.length,
           itemBuilder: (context, i) {
-            return Card(
-                child: GestureDetector(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProductDetails(
-                          "${allposts[i]['userId']}",
-                          "${allposts[i]['id']}",
-                          "${allposts[i]['title']}",
-                          "${allposts[i]['body']}"))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    height: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                          image: NetworkImage(allposts[i]['title']),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Container(
-                    height: 25,
-                    child: Text(allposts[i]['title'],
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 23)),
-                  ),
-                  SizedBox(height: 7),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellowAccent,
-                          size: 11,
-                        ),
-                        SizedBox(width: 1),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellowAccent,
-                          size: 11,
-                        ),
-                        SizedBox(width: 1),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellowAccent,
-                          size: 11,
-                        ),
-                        SizedBox(width: 1),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellowAccent,
-                          size: 11,
-                        ),
-                        SizedBox(width: 1),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellowAccent,
-                          size: 11,
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          "5.0 (23 Reviews)",
-                          style: TextStyle(fontSize: 11),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ));
+            return Column(
+              children: [
+                SizedBox(height: 20),
+                Card(
+                    color: Colors.purple,
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductDetails(
+                                  "${allposts[i]['userId']}",
+                                  "${allposts[i]['id']}",
+                                  "${allposts[i]['title']}",
+                                  "${allposts[i]['body']}"))),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 1,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "USER ID: ${allposts[i]['userId']}",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 18),
+                              ),
+                              Text("POST ID: ${allposts[i]['id']}",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 18)),
+                              Text("TITLE: ${allposts[i]['title']}",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 18)),
+                              Text("BODY: ${allposts[i]['body']}",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 18)),
+                            ]),
+                      ),
+                    )),
+              ],
+            );
           }),
     );
   }
