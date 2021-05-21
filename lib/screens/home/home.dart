@@ -30,7 +30,7 @@ class __BodyState extends State<_Body> {
   submitForm() async {
     ApiService _apiService = ApiService();
 
-    List<dynamic> eachposts = await _apiService.getUserPosts(5);
+    List<dynamic> eachposts = await _apiService.getUserPosts(6);
     setState(() {
       allposts = eachposts;
     });
@@ -63,48 +63,56 @@ class __BodyState extends State<_Body> {
         title: Text("Product Lists",
             style: TextStyle(fontWeight: FontWeight.bold)),
       ),
-      body: ListView.builder(
-          itemCount: allposts.length,
-          itemBuilder: (context, i) {
-            return Column(
-              children: [
-                SizedBox(height: 20),
-                Card(
-                    color: Colors.purple,
-                    child: GestureDetector(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProductDetails(
-                                  "${allposts[i]['userId']}",
-                                  "${allposts[i]['id']}",
-                                  "${allposts[i]['title']}",
-                                  "${allposts[i]['body']}"))),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 1,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "USER ID: ${allposts[i]['userId']}",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              Text("POST ID: ${allposts[i]['id']}",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 18)),
-                              Text("TITLE: ${allposts[i]['title']}",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 18)),
-                              Text("BODY: ${allposts[i]['body']}",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 18)),
-                            ]),
-                      ),
-                    )),
-              ],
-            );
-          }),
+      body: FutureBuilder(
+        future: submitForm(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: allposts.length,
+                itemBuilder: (context, i) {
+                  return Column(
+                    children: [
+                      SizedBox(height: 20),
+                      Card(
+                          color: Colors.purple,
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProductDetails(
+                                        "${allposts[i]['userId']}",
+                                        "${allposts[i]['id']}",
+                                        "${allposts[i]['title']}",
+                                        "${allposts[i]['body']}"))),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 1,
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "USER ID: ${allposts[i]['userId']}",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                    ),
+                                    Text("POST ID: ${allposts[i]['id']}",
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 18)),
+                                    Text("TITLE: ${allposts[i]['title']}",
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 18)),
+                                    Text("BODY: ${allposts[i]['body']}",
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 18)),
+                                  ]),
+                            ),
+                          )),
+                    ],
+                  );
+                });
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }
