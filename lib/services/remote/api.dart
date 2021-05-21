@@ -25,7 +25,7 @@ class ApiService {
     return allUsers;
   }
 
-  Future<List<Posts>> getUserPosts(int userId) async {
+  Future<dynamic> getUserPosts(int userId) async {
     final response = await _dio?.get('/posts', queryParameters: {
       "userId": userId,
     });

@@ -25,12 +25,10 @@ class _Body extends StatefulWidget {
 }
 
 class __BodyState extends State<_Body> {
-  var each;
-
   submitForm() async {
     ApiService _apiService = ApiService();
 
-    var eachposts = await _apiService.getUserPosts(4);
+    List<dynamic> eachposts = await _apiService.getUserPosts(3);
     setState(() {
       allposts = eachposts;
     });
@@ -40,6 +38,7 @@ class __BodyState extends State<_Body> {
   @override
   void initState() {
     super.initState();
+
     submitForm();
   }
 
