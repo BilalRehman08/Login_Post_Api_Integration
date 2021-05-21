@@ -20,7 +20,7 @@ class ApiService {
   Future<List<User>> getAllUsers() async {
     final response = await _dio?.get('/users');
     final allUsers = User.fromJsonList(response?.data);
-    print(allUsers);
+    // print(allUsers);
 
     return allUsers;
   }
@@ -29,8 +29,10 @@ class ApiService {
     final response = await _dio?.get('/posts', queryParameters: {
       "userId": userId,
     });
-    final allposts = Posts.fromJsonList(response?.data);
-    print(allposts);
+    // print(response?.data);
+    final allposts = response?.data;
+    print("My List: " + "${allposts[0]['userId']}");
+    // print(allposts);
     return allposts;
   }
 }
