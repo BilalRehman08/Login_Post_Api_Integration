@@ -30,7 +30,7 @@ class __BodyState extends State<_Body> {
   submitForm() async {
     ApiService _apiService = ApiService();
 
-    List<dynamic> eachposts = await _apiService.getUserPosts(2);
+    List<dynamic> eachposts = await _apiService.getUserPosts(widget.user?.id);
     setState(() {
       allposts = eachposts;
     });
