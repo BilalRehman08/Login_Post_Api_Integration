@@ -31,7 +31,7 @@ class ApiService {
     });
     // print(response?.data);
     allposts = response?.data;
-    print("My List: " + "${allposts[0]['userId']}");
+
     // print(allposts);
     return allposts;
   }
