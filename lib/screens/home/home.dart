@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task/models/user.dart';
+import 'package:task/screens/auth/login/login.dart';
 import 'package:task/screens/home/productdetails.dart';
 import 'package:task/services/remote/api.dart';
 
@@ -46,6 +47,22 @@ class __BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Login()));
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        centerTitle: true,
+        title: Text("Product Lists",
+            style: TextStyle(fontWeight: FontWeight.bold)),
+      ),
       body: ListView.builder(
           itemCount: allposts.length,
           itemBuilder: (context, i) {
