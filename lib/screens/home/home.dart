@@ -28,11 +28,11 @@ class __BodyState extends State<_Body> {
   submitForm() async {
     ApiService _apiService = ApiService();
 
-    List<dynamic> eachposts = await _apiService.getUserPosts(3);
+    List<dynamic> eachposts = await _apiService.getUserPosts(10);
     setState(() {
       allposts = eachposts;
     });
-    return eachposts;
+    return allposts;
   }
 
   @override
